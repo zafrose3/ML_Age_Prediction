@@ -30,11 +30,12 @@ Original file is located at
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import pickle
 
 df = pd.read_csv("NHANES_age_prediction.csv")
 df.head()
 
-X = df.drop(columns=["age_group"]).values  # Drop target column to get features (works)
+X = df.drop(columns=["age_group", "SEQN"]).values  # Drop target column to get features (works)
 y = df["age_group"].values  # Select target column
 
 print(X)
@@ -310,3 +311,10 @@ print("Decision Tree (max_depth=4):")
 print(f"Precision: {report_tree['weighted avg']['precision']:.4f}")
 print(f"Recall:    {report_tree['weighted avg']['recall']:.4f}")
 print(f"F1-Score:  {report_tree['weighted avg']['f1-score']:.4f}")
+
+
+pickle.dump(lr_clf_std, open("model.pkl", "wb"))
+pickle.dump(sc, open("scaler.pkl", "wb"))
+pickle.dump(le, open("label_encoder.pkl", "wb"))
+
+print("Model, scaler, and label encoder saved successfully!")
