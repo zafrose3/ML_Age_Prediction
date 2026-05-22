@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: age-prediction-deployment
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: age-prediction
+
+  template:
+
+    metadata:
+      labels:
+        app: age-prediction
+
+    spec:
+      containers:
+        - name: age-prediction-container
+          image: zafreenamri/age-prediction-app:latest
+
+
+          ports:
+            - containerPort: 8501
